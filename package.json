@@ -1,18 +1,17 @@
 {
-	"name": "svgx",
+	"name": "svgxr",
 	"description": "Convert SVGs to React components with CLI",
 	"version": "0.0.1",
-	"license": "UNLICENSED",
+	"license": "MIT",
 	"bin": {
-		"svgx": "index.js"
+		"svgxr": "index.js"
 	},
 	"author": {
 		"name": "Sanjeev Sharma",
-		"email": "sanjeev.sharma@syfe.com",
 		"url": "https://twitter.com/thesnjvsharma"
 	},
 	"keywords": [
-		"svgx",
+		"svgxr",
 		"Sanjeev Sharma"
 	],
 	"files": [

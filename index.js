@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * svgx
+ * svgxr
  * Convert SVGs to React components with CLI
  *
  * @author Sanjeev Sharma <https://twitter.com/thesnjvsharma>
