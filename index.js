@@ -50,8 +50,6 @@ const { clear, debug } = flags;
 			''
 		);
 
-		console.log({ width, height });
-
 		const componentData = `
 		import React from 'react';
 		
@@ -74,12 +72,15 @@ const { clear, debug } = flags;
 			if (err) {
 				console.error('Error writing to the file:', err);
 			} else {
-				chalk(
-					`File ${filePath} successfully converted to React component!`
+				console.log(
+					chalk(
+						`✅ File "${filePath}" successfully converted to React component - ${componentName}!`
+					)
 				);
+				console.log();
 			}
 		});
 	});
 
-	debug && log(flags);
+	// debug && log(flags);
 })();

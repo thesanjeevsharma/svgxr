@@ -5,7 +5,7 @@ const unhandled = require('cli-handle-unhandled');
 module.exports = ({ clear = true }) => {
 	unhandled();
 	welcome({
-		title: `svgx-cli`,
+		title: `svgxr`,
 		tagLine: `by Sanjeev Sharma`,
 		description: pkg.description,
 		version: pkg.version,
