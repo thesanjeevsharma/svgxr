@@ -15,6 +15,7 @@ const init = require('./utils/init');
 const cli = require('./utils/cli');
 const log = require('./utils/log');
 const parseSvg = require('./utils/parseSvg');
+const template = require('./utils/template');
 
 const input = cli.input;
 const flags = cli.flags;
@@ -25,7 +26,7 @@ const { clear, debug } = flags;
 	input.includes(`help`) && cli.showHelp(0);
 
 	const filePath = flags.i ?? input[0];
-	const outputPath = flags.o ?? filePath.split('/').pop().split('.')[0];
+	const outputPath = flags.output ?? filePath.split('/').pop().split('.')[0];
 
 	const capitalizedName =
 		outputPath.charAt(0).toUpperCase() + outputPath.slice(1);
@@ -51,9 +52,7 @@ const { clear, debug } = flags;
 		);
 
 		const componentData = `
-		import React from 'react';
-		
-		const ${componentName} = ({ width = ${width}, height = ${height}, ...props }) => (
+		${template(flags.type, { componentName, width, height })}
 			<svg height={height} width={width} viewBox="0 0 ${parseFloat(
 				width
 			)} ${parseFloat(height)}" ${svgRestProps} {...props}>
@@ -64,22 +63,29 @@ const { clear, debug } = flags;
 		`;
 
 		const prettyData = await prettier.format(componentData, {
-			parser: 'babel'
+			parser: 'babel-ts'
 		});
 
+		const extension = flags.type === 'ts' ? 'tsx' : 'jsx';
+
 		// Write the modified content back to the file
-		fs.writeFile(`${componentName}.jsx`, prettyData, 'utf8', err => {
-			if (err) {
-				console.error('Error writing to the file:', err);
-			} else {
-				console.log(
-					chalk(
-						`✅ File "${filePath}" successfully converted to React component - ${componentName}!`
-					)
-				);
-				console.log();
+		fs.writeFile(
+			`${componentName}.${extension}`,
+			prettyData,
+			'utf8',
+			err => {
+				if (err) {
+					console.error('Error writing to the file:', err);
+				} else {
+					console.log(
+						chalk(
+							`✅ File "${filePath}" successfully converted to React component - ${componentName}!`
+						)
+					);
+					console.log();
+				}
 			}
-		});
+		);
 	});
 
 	// debug && log(flags);
